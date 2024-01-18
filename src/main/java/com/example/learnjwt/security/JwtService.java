@@ -76,11 +76,13 @@ public class JwtService {
 
     // Lấy ra tất cả claims
     private Claims extractAllClaims(String token){
-        return Jwts.parserBuilder()
-                .setSigningKey(getSignInKey())
-                .build()
-                .parseClaimsJwt(token)
-                .getBody();
+//        return Jwts
+//                .parserBuilder()
+//                .setSigningKey(getSignInKey())
+//                .build()
+//                .parseClaimsJwt(token)
+//                .getBody();
+        return Jwts.parser().setSigningKey(getSignInKey()).parseClaimsJws(token).getBody();
     }
     private Key getSignInKey(){
         byte[] bytes = Decoders.BASE64.decode(secretKey);

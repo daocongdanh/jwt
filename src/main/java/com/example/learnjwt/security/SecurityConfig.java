@@ -3,6 +3,7 @@ package com.example.learnjwt.security;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -25,6 +26,11 @@ public class SecurityConfig {
                     requests
                             .requestMatchers("/api/v1/users/register").permitAll()
                             .requestMatchers("/api/v1/users/login").permitAll()
+                            .requestMatchers(HttpMethod.GET,"/api/v1/categories/**").hasRole("USER")
+                            .requestMatchers(HttpMethod.GET,"/api/v1/categories").hasRole("USER")
+                            .requestMatchers(HttpMethod.POST,"/api/v1/categories").hasRole("ADMIN")
+                            .requestMatchers(HttpMethod.PUT,"/api/v1/categories").hasRole("ADMIN")
+                            .requestMatchers(HttpMethod.DELETE,"/api/v1/categories/**").hasRole("ADMIN")
                             .anyRequest().authenticated();
                 });
 

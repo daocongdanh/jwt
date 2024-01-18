@@ -27,7 +27,7 @@ public class User implements UserDetails {
     private String lastName;
     private String email;
     private String password;
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Role> roleList;
 
     @Override
